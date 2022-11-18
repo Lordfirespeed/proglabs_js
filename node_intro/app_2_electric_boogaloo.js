@@ -115,10 +115,8 @@ class RequestHandler {
             this.http_error(405, "Method not allowed. Use POST");
             return;
         }
-
         this.response.end(this.body);
     }
-
 }
 
 
