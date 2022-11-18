@@ -1,8 +1,5 @@
 const http = require("http");
 
-const hostname = '127.0.0.1';
-const port = 9090;
-
 
 class RequestHandler {
     constructor(request, response) {
@@ -122,15 +119,26 @@ class RequestHandler {
 }
 
 
-const server = http.createServer();
+function main() {
+    const hostname = '127.0.0.1';
+    const port = 9090;
 
-server.on('request', (request, response) => {
-    // the same kind of magic happens here!
-    const handler = new RequestHandler(request, response);
-    handler.handle();
-});
+    const server = http.createServer();
 
-server.listen(port, hostname, () => {
-    console.log(`Server running at http://${hostname}:${port}/`);
-});
+    server.on('request', (request, response) => {
+        // the same kind of magic happens here!
+        const handler = new RequestHandler(request, response);
+        handler.handle();
+    });
+
+    server.listen(port, hostname, () => {
+        console.log(`Server running at http://${hostname}:${port}/`);
+    });
+}
+
+exports.RequestHandler = RequestHandler;
+
+if (typeof require !== 'undefined' && require.main === module) {
+    main();
+}
 
