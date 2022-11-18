@@ -86,13 +86,7 @@ class RequestHandler {
 
     select_response() {
         if (this.request.url === "/echo") {
-            if (this.request.method !== "POST") {
-                this.http_error(405, "Method not allowed. Use POST");
-                return;
-            }
-
-            this.response.end(this.body);
-
+            this.route_echo();
         } else {
             this.construct_response();
         }
@@ -116,8 +110,13 @@ class RequestHandler {
         // response.end(JSON.stringify(responseBody))
     }
 
-    on_post_to_echo() {
+    route_echo() {
+        if (this.request.method !== "POST") {
+            this.http_error(405, "Method not allowed. Use POST");
+            return;
+        }
 
+        this.response.end(this.body);
     }
 
 }
