@@ -2,7 +2,7 @@ const { RequestHandler } = require("./app_2_electric_boogaloo");
 const http = require("http");
 
 const hostname = '127.0.0.1';
-const port = 9090;
+const port = 9095;
 
 function main(hostname, port) {
     http.createServer().on('request', (request, response) => {
