@@ -14,10 +14,37 @@ class RequestHandler {
         this.method = null;
         this.url = null;
         this.body = [];
-
-        this.parse()
-        this.listen()
     };
+
+    handle() {
+        try {
+            this.parse()
+            this.listen()
+        } catch (error) {
+            this.handle_error(error)
+        }
+    }
+
+    handle_error(error) {
+        if (error.name === "HTTPError") {
+            this.handle_http_error(error)
+        } else {
+            this.handle_internal_error(error)
+        }
+    }
+
+    handle_http_error(error) {
+        this.response.statusCode = error.response.statusCode;
+        this.response.end(JSON.stringify(error.data));
+        console.log(error);
+    }
+
+    handle_internal_error(error) {
+        this.response.statusCode = 500;
+        const response_body = {message: "Internal server error"}
+        this.response.end(JSON.stringify(response_body));
+        console.log(error);
+    }
 
     parse() {
         const { headers, method, url } = this.request;
@@ -37,8 +64,38 @@ class RequestHandler {
             this.body = Buffer.concat(this.body).toString();
             // At this point, we have the headers, method, url and body, and can now
             // do whatever we need to in order to respond to this request.
-            this.construct_response();
+            try {
+                this.select_response();
+            } catch (error) {
+                this.handle_error(error)
+            }
         });
+    }
+
+    http_error(code, message) {
+        const exception = new Error();
+        exception.name = "HTTPError";
+        exception.response = {
+            statusCode: code,
+            data: {
+                message: message
+            }
+        }
+        throw exception;
+    }
+
+    select_response() {
+        if (this.request.url === "/echo") {
+            if (this.request.method !== "POST") {
+                this.http_error(405, "Method not allowed. Use POST");
+                return;
+            }
+
+            this.response.end(this.body);
+
+        } else {
+            this.construct_response();
+        }
     }
 
     construct_response() {
@@ -58,6 +115,11 @@ class RequestHandler {
         // Note: the 2 lines above could be replaced with this next one:
         // response.end(JSON.stringify(responseBody))
     }
+
+    on_post_to_echo() {
+
+    }
+
 }
 
 
@@ -65,7 +127,8 @@ const server = http.createServer();
 
 server.on('request', (request, response) => {
     // the same kind of magic happens here!
-    new RequestHandler(request, response);
+    const handler = new RequestHandler(request, response);
+    handler.handle();
 });
 
 server.listen(port, hostname, () => {
