@@ -36,7 +36,7 @@ class RequestHandler {
     handle_http_error(error) {
         this.response.statusCode = error.response.statusCode;
         this.response.setHeader('Content-Type', 'application/json');
-        this.response.end(JSON.stringify(error.data));
+        this.response.end(JSON.stringify(error.response));
         console.log(error);
     }
 
