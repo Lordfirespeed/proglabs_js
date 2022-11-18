@@ -137,7 +137,6 @@ function main(hostname, port) {
 }
 
 exports.RequestHandler = RequestHandler;
-exports.main = main;
 
 if (typeof require !== 'undefined' && require.main === module) {
     main(hostname, port);
