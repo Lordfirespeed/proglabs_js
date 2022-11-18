@@ -46,6 +46,18 @@ class RequestHandler {
         console.log(error);
     }
 
+    http_error(code, message) {
+        const exception = new Error();
+        exception.name = "HTTPError";
+        exception.response = {
+            statusCode: code,
+            data: {
+                message: message
+            }
+        }
+        throw exception;
+    }
+
     parse() {
         const { headers, method, url } = this.request;
         this.headers = headers;
@@ -70,18 +82,6 @@ class RequestHandler {
                 this.handle_error(error)
             }
         });
-    }
-
-    http_error(code, message) {
-        const exception = new Error();
-        exception.name = "HTTPError";
-        exception.response = {
-            statusCode: code,
-            data: {
-                message: message
-            }
-        }
-        throw exception;
     }
 
     select_response() {
