@@ -35,12 +35,14 @@ class RequestHandler {
 
     handle_http_error(error) {
         this.response.statusCode = error.response.statusCode;
+        this.response.setHeader('Content-Type', 'application/json');
         this.response.end(JSON.stringify(error.data));
         console.log(error);
     }
 
     handle_internal_error(error) {
         this.response.statusCode = 500;
+        this.response.setHeader('Content-Type', 'application/json');
         const response_body = {message: "Internal server error"}
         this.response.end(JSON.stringify(response_body));
         console.log(error);
