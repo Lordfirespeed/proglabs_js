@@ -7,6 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "echo \"Error: use 'npm run [name]'\" && exit 1",
-    "routing_server": "node node_routing/server.js"
+    "routing_server": "node node_routing/server.js",
+    "routing_recipes": "node node_routing/recipe_server.js"
   }
 }
