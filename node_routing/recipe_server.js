@@ -28,13 +28,14 @@ app.get('/recipes', function(req, resp){
 
 app.post('/recipes/new', function(req, resp){
     let { title, href, ingredients, thumbnail } = req.body;
-    let new_recipe = {title, href, ingredients, thumbnail};
-    if (Object.entries(new_recipe).some((key, value) => (value === undefined))) {
-        resp.http_error(400, "Fields are missing.");
-        return;
+    console.log(title, href, ingredients, thumbnail);
+    if ([title, href, ingredients, thumbnail].some(element => (element === undefined))) {
+        return resp.status(400).send("Fields are missing.");
     }
+
+    let new_recipe = {title, href, ingredients, thumbnail};
     recipes.push(new_recipe)
-    resp.sendStatus(200)
+    resp.send("Successfully added recipe.")
 })
 
 app.listen(8080)
