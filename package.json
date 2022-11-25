@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "express": "^4.18.2",
+    "finalhandler": "^1.2.0",
+    "router": "^1.3.7"
+  },
+  "scripts": {
+    "routing_hello": "node node_routing/hello.js"
+  }
+}
