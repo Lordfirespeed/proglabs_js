@@ -23,8 +23,4 @@ app.get('/book', function(req, resp){
     resp.send(`here is book with ID ${req.query.id}`)
 })
 
-app.get('/recipe', function(req, resp){
-
-})
-
 app.listen(8090)
