@@ -1,3 +1,5 @@
+const recipes = require('./potato_recipes.json');
+
 const express = require('express')
 const app = express()
 
@@ -19,6 +21,10 @@ app.get('/book', function(req, resp){
         return
     }
     resp.send(`here is book with ID ${req.query.id}`)
+})
+
+app.get('/recipe', function(req, resp){
+
 })
 
 app.listen(8090)
