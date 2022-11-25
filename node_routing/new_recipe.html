@@ -2,9 +2,32 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>New Recipe</title>
 </head>
 <body>
+
+<form action="http://127.0.0.1:8080/recipes/new" method="post" class="form">
+    <div class="form">
+        <label for="recipeTitle">Recipe Title: </label>
+        <input type="text" name="title" id="recipeTitle" required>
+    </div>
+    <div class="form">
+        <label for="recipeHref">Recipe URL: </label>
+        <input type="url" name="href" id="recipeHref" required>
+    </div>
+    <div class="form">
+        <label for="recipeIngredients">Recipe Ingredients: </label>
+        <input type="text" name="ingredients" id="recipeIngredients" required>
+    </div>
+    <div class="form">
+        <label for="recipeeThumbnail">Recipe Thumbnail URL: </label>
+        <input type="url" name="thumbnail" id="recipeeThumbnail" required>
+    </div>
+
+    <div class="form">
+        <input type="submit" value="Submit">
+    </div>
+</form>
 
 </body>
 </html>
