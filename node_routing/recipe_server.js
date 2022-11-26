@@ -28,7 +28,6 @@ app.get('/recipes', function(req, resp){
 
 app.post('/recipes/new', function(req, resp){
     let { title, href, ingredients, thumbnail } = req.body;
-    console.log(title, href, ingredients, thumbnail);
     if ([title, href, ingredients, thumbnail].some(element => (element === undefined))) {
         return resp.status(400).send("Fields are missing.");
     }
